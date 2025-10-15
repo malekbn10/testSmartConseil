@@ -68,6 +68,7 @@ DB_DATABASE=booksDB
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+Dans le terminal passer les commande ci-dessous
 ```bash
 php artisan key:generate
 php artisan migrate
