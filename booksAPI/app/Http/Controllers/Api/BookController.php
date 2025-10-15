@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -13,8 +15,22 @@ class BookController extends Controller
      */
     public function index()
     {
-        return response()->json(Book::all(), 200);
+        try {
+            $books = Book::all();
 
+            if ($books->isEmpty()) {
+                return response()->json([
+                    'message' => 'Aucun livre trouvé.'
+                ], 200);
+            }
+
+            return response()->json($books, 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => 'Erreur lors de la récupération des livres.',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -22,14 +38,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:255',
-            'auteur' => 'required|string|max:255',
-            'annee' => 'required|integer',
-        ]);
+        try {
+            $validated = $request->validate([
+                'titre' => 'required|string|max:255',
+                'auteur' => 'required|string|max:255',
+                'annee' => 'required|integer'
+            ]);
 
-        $book = Book::create($validated);
-        return response()->json($book, 201);
+            $book = Book::create($validated);
+
+            return response()->json([
+                'message' => 'Livre ajouté avec succès.',
+                'book' => $book
+            ], 201);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => 'Erreur lors de l’ajout du livre.',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -46,24 +74,59 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, $id)
     {
-        $book = Book::findOrFail($id);
-        $book->update($request->validate([
-            'titre' => 'required|string|max:255',
-            'auteur' => 'required|string|max:255',
-            'annee' => 'required|integer',
-        ]));
-        return response()->json($book, 200);
+        try {
+            $book = Book::findOrFail($id);
+
+            $validated = $request->validate([
+                'titre' => 'sometimes|string|max:255',
+                'auteur' => 'sometimes|string|max:255',
+                'annee' => 'sometimes|integer'
+            ]);
+
+            $book->update($validated);
+
+            return response()->json([
+                'message' => 'Livre mis à jour avec succès.',
+                'book' => $book
+            ], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Livre introuvable'
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => 'Erreur lors de la mise à jour du livre.',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $book = Book::findOrFail($id);
-        $book->delete();
-        return response()->json(['message' => 'Livre supprimé avec succès']);
+        try {
+            $book = Book::findOrFail($id);
+            $book->delete();
+
+            return response()->json([
+                'message' => 'Livre supprimé avec succès.'
+            ], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Livre introuvable'
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => 'Erreur lors de la suppression du livre.',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 }
