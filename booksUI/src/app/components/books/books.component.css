@@ -1,0 +1,170 @@
+/* Container principal */
+.container {
+  max-width: inherit;
+  height: max-content;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #77270c;
+  margin-bottom: 20px;
+}
+
+/* Formulaire */
+.form-row-with-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start; 
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column; 
+  flex: 1;
+  min-width: 150px;
+}
+
+.input-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #77270c;
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.button-group button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 3px;
+}
+.form-container {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* Boutons */
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #77270c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5b1c08;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.btn-edit {
+  background: #facc15;
+  color: #111;
+}
+
+.btn-edit:hover {
+  background: #eab308;
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #b91c1c;
+}
+
+/* Tableau */
+.table-container {
+
+  overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+
+  padding: 12px 15px;
+  text-align: center;
+}
+
+thead {
+  background: #77270c;
+  color: white;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+  background: #f3f4f6;
+}
+
+.no-books {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+

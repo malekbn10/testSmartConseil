@@ -1,0 +1,64 @@
+<div class="container">
+  <h1> Gestion des Livres</h1>
+
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-row-with-buttons">
+    
+    <div class="input-group">
+      <input formControlName="titre" type="text" placeholder="Titre du livre" />
+      <div class="error-message" *ngIf="bookForm.get('titre')?.invalid && (bookForm.get('titre')?.touched || bookForm.get('titre')?.dirty)">
+        <small *ngIf="bookForm.get('titre')?.errors?.['required']">Le titre est requis.</small>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <input formControlName="auteur" type="text" placeholder="Auteur" />
+      <div class="error-message" *ngIf="bookForm.get('auteur')?.invalid && (bookForm.get('auteur')?.touched || bookForm.get('auteur')?.dirty)">
+        <small *ngIf="bookForm.get('auteur')?.errors?.['required']">L'auteur est requis.</small>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <input formControlName="annee" type="number" placeholder="Année (ex: 2025)" />
+      <div class="error-message" *ngIf="bookForm.get('annee')?.invalid && (bookForm.get('annee')?.touched || bookForm.get('annee')?.dirty)">
+        <small *ngIf="bookForm.get('annee')?.errors?.['required']">L'année est requise.</small>
+        <small *ngIf="bookForm.get('annee')?.errors?.['pattern']">L'année doit être sur 4 chiffres</small>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary">{{ editMode ? 'Mettre à jour' : 'Ajouter' }}</button>
+      <button *ngIf="editMode" type="button" (click)="resetForm()" class="btn btn-secondary">Annuler</button>
+    </div>
+    
+  </div>
+</form>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Auteur</th>
+          <th>Année</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>{{ book.titre }}</td>
+          <td>{{ book.auteur }}</td>
+          <td>{{ book.annee }}</td>
+          <td>
+            <button class="btn btn-edit " (click)="editBook(book)">Modifier</button>
+            <button class="btn btn-delete" (click)="deleteBook(book.id!)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="books.length === 0" class="no-books">
+      Aucun livre trouvé
+    </div>
+  </div>
+</div>
