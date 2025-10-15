@@ -42,10 +42,11 @@ git clone https://github.com/malekbn10/testSmartConseil.git
 cd testSmartConseil
 ```
 Le projet contient deux dossiers principaux :
+```bash
 testSmartConseil/
 ├── booksAPI/    # Application Angular
 └── booksUI/     # Application Laravel
-
+```
 Installation du backend (Laravel):
 ```bash
 cd booksAPI
