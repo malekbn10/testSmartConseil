@@ -54,7 +54,7 @@ cp .env.example .env
 
 ```
 ### 2 Configuration du fichier .env
-
+```bash
 Ouvre le fichier .env et configure la base de données :
 APP_NAME=TestSmartConseil
 APP_URL=http://localhost:8000
@@ -65,6 +65,7 @@ DB_PORT=3306
 DB_DATABASE=books_db
 DB_USERNAME=root
 DB_PASSWORD=
+```
 ```bash
 php artisan key:generate
 php artisan migrate
