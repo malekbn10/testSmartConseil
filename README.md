@@ -54,8 +54,9 @@ cp .env.example .env
 
 ```
 ### 2 Configuration du fichier .env
-```bash
 Ouvre le fichier .env et configure la base de données :
+
+```bash
 APP_NAME=TestSmartConseil
 APP_URL=http://localhost:8000
 
